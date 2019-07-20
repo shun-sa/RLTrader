@@ -97,6 +97,8 @@ class BaseDataProvider(object, metaclass=ABCMeta):
         elif self.date_format is ProviderDateFormat.CUSTOM_DATIME:
             formatted[date_col] = pd.to_datetime(
                 date_frame, format=self.custom_datetime_format, infer_datetime_format=True)
+        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIX:
+            formatted[date_col] = pd.to_datetime(date_frame)
         else:
             raise NotImplementedError
 

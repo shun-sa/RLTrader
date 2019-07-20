@@ -10,3 +10,4 @@ class ProviderDateFormat(Enum):
     DATETIME_MINUTE_12 = 6
     DATETIME_MINUTE_24 = 7
     CUSTOM_DATIME = 8
+    TIMESTAMP_UNIX = 9
