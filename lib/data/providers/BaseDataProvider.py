@@ -65,7 +65,7 @@ class BaseDataProvider(object, metaclass=ABCMeta):
         else:
             formatted = data_frame.copy()
 
-        formatted = formatted.sort_values(self.data_columns['Date'])
+        formatted = formatted.sort_values(self.columns[0])
 
         return formatted
 
@@ -75,7 +75,7 @@ class BaseDataProvider(object, metaclass=ABCMeta):
         else:
             formatted = data_frame.copy()
 
-        date_col = self.data_columns['Date']
+        date_col = self.columns[0]
         date_frame = formatted.loc[:, date_col]
 
         if self.date_format is ProviderDateFormat.TIMESTAMP_UTC:
