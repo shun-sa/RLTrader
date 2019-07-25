@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-
+import numpy as np
 from typing import Tuple
 from lib.data.providers.dates import ProviderDateFormat
 from lib.data.providers import BaseDataProvider
@@ -59,7 +59,7 @@ class StaticDataProvider(BaseDataProvider):
     def next_ohlcv(self) -> pd.DataFrame:
         frame = self.data_frame[self.columns].values[self._current_index]
         frame = pd.DataFrame([frame], columns=self.columns)
-
         self._current_index += 1
-
+        if np.isnan(frame["Close"].values[0]):
+            frame = self.next_ohlcv()
         return frame

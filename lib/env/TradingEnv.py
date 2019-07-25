@@ -11,6 +11,7 @@ from lib.env.reward import BaseRewardStrategy, IncrementalProfit, WeightedUnreal
 from lib.env.trade import BaseTradeStrategy, SimulatedTradeStrategy
 from lib.data.providers import BaseDataProvider
 from lib.data.features.transform import max_min_normalize, mean_normalize, log_and_difference, difference
+from lib.data.features.indicators import add_indicators, get_indicators_len
 from lib.util.logger import init_logger
 
 
@@ -64,7 +65,7 @@ class TradingEnv(gym.Env):
         self.n_discrete_actions: int = kwargs.get('n_discrete_actions', 24)
         self.action_space = spaces.Discrete(self.n_discrete_actions)
 
-        self.n_features = 6 + len(self.data_provider.columns)
+        self.n_features = get_indicators_len() + 6 + len(self.data_provider.columns)
         self.obs_shape = (1, self.n_features)
         self.observation_space = spaces.Box(low=0, high=1, shape=self.obs_shape, dtype=np.float16)
 
@@ -94,7 +95,6 @@ class TradingEnv(gym.Env):
 
     def _take_action(self, action: int):
         amount_asset_to_buy, amount_asset_to_sell = self._get_trade(action)
-
         asset_bought, asset_sold, purchase_cost, sale_revenue = self.trade_strategy.trade(buy_amount=amount_asset_to_buy,
                                                                                           sell_amount=amount_asset_to_sell,
                                                                                           balance=self.balance,
@@ -164,17 +164,18 @@ class TradingEnv(gym.Env):
         self.current_ohlcv = self.data_provider.next_ohlcv()
         self.timestamps.append(pd.to_datetime(self.current_ohlcv.Date.item(), unit='s'))
         self.observations = self.observations.append(self.current_ohlcv, ignore_index=True)
-
-        if self.stationarize_obs:
+        self.observations = add_indicators(self.observations)
+        # print (self.observations)
+        if not self.stationarize_obs:
             observations = log_and_difference(self.observations, inplace=False)
         else:
             observations = self.observations
 
-        if self.normalize_obs:
-            observations = max_min_normalize(observations)
+        # if self.normalize_obs:
+        #     observations = max_min_normalize(observations)
 
         obs = observations.values[-1]
-
+        print(observations["Date"])
         if self.stationarize_obs:
             scaled_history = log_and_difference(self.account_history, inplace=False)
         else:
@@ -184,7 +185,6 @@ class TradingEnv(gym.Env):
             scaled_history = max_min_normalize(scaled_history, inplace=False)
 
         obs = np.insert(obs, len(obs), scaled_history.values[-1], axis=0)
-
         obs = np.reshape(obs.astype('float16'), self.obs_shape)
         obs[np.bitwise_not(np.isfinite(obs))] = 0
 
