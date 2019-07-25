@@ -9,3 +9,5 @@ data/log/*
 data/reports/*
 *.pkl
 venv/*
+*.DS_Store
+*.db
