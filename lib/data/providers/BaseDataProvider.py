@@ -66,7 +66,6 @@ class BaseDataProvider(object, metaclass=ABCMeta):
             formatted = data_frame.copy()
 
         formatted = formatted.sort_values(self.columns[0])
-
         return formatted
 
     def _format_date_column(self, data_frame: pd.DataFrame, inplace: bool = True) -> pd.DataFrame:
@@ -97,8 +96,14 @@ class BaseDataProvider(object, metaclass=ABCMeta):
         elif self.date_format is ProviderDateFormat.CUSTOM_DATIME:
             formatted[date_col] = pd.to_datetime(
                 date_frame, format=self.custom_datetime_format, infer_datetime_format=True)
-        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIX:
-            formatted[date_col] = pd.to_datetime(date_frame)
+        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIXS:
+            formatted[date_col] = pd.to_datetime(date_frame,unit='s')
+        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIXMS:
+            formatted[date_col] = pd.to_datetime(date_frame,unit='ms')
+        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIXUS:
+            formatted[date_col] = pd.to_datetime(date_frame,unit='us')
+        elif self.date_format is ProviderDateFormat.TIMESTAMP_UNIXNS:
+            formatted[date_col] = pd.to_datetime(date_frame,unit='ns')
         else:
             raise NotImplementedError
 
