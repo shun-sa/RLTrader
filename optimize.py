@@ -19,7 +19,10 @@ def optimize_code(params):
 
 if __name__ == '__main__':
     n_processes = multiprocessing.cpu_count()
-    params = {'n_envs': n_processes, 'reward_strategy': WeightedUnrealizedProfit}
+    params = {'n_envs': n_processes, 
+                'reward_strategy': WeightedUnrealizedProfit,
+                "input_data_path": "../coinbase_btc.csv",
+                "tensorboard_path": "data/log/tensorboard"}
 
     opt_pool = Pool(processes=n_processes)
     results = opt_pool.imap(optimize_code, [params for _ in range(n_processes)])

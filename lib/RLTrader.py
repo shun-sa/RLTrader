@@ -70,8 +70,10 @@ class RLTrader:
                 class_dir = os.path.dirname(__file__)
                 self.input_data_path = os.path.realpath(os.path.join(class_dir, "../{}".format(self.input_data_path)))
 
-            data_columns = {'Date': 'Date', 'Open': 'Open', 'High': 'High',
-                            'Low': 'Low', 'Close': 'Close', 'Volume': 'VolumeFrom'}
+            # data_columns = {'Date': 'Date', 'Open': 'Open', 'High': 'High',
+            #                 'Low': 'Low', 'Close': 'Close', 'Volume': 'VolumeFrom'}
+            data_columns = {'Date': 'Timestamp', 'Open': 'Open', 'High': 'High',
+                            'Low': 'Low', 'Close': 'Close', 'Volume': 'Volume_(BTC)'}
 
             self.data_provider = StaticDataProvider(date_format=self.date_format,
                                                     csv_data_path=self.input_data_path,
