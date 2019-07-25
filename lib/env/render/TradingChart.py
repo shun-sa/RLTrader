@@ -105,7 +105,7 @@ class TradingChart:
         self.volume_ax.plot(times, volume,  color='blue')
         self.volume_ax.fill_between(times, volume, color='blue', alpha=0.5)
 
-        self.volume_ax.set_ylim(0, max(volume) / VOLUME_CHART_HEIGHT)
+        self.volume_ax.set_ylim(0, np.nanmax(volume) / VOLUME_CHART_HEIGHT)
         self.volume_ax.yaxis.set_ticks([])
 
     def _render_trades(self, step_range, trades):
