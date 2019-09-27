@@ -29,11 +29,11 @@ def init_logger(dunder_name, show_debug=False) -> logging.Logger:
     # Feel free to uncomment and use the outputs as you like
 
     # Output full log
-    # fh = logging.FileHandler(os.path.join('data', log', 'trading.log')
-    # fh.setLevel(logging.DEBUG)
-    # formatter = logging.Formatter(log_format)
-    # fh.setFormatter(formatter)
-    # logger.addHandler(fh)
+    fh = logging.FileHandler(os.path.join('data', 'log', 'trading.log'))
+    fh.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(log_format)
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
 
     # # Output warning log
     # fh = logging.FileHandler(os.path.join('data', log', 'trading.warning.log')

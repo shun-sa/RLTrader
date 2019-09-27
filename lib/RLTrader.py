@@ -286,12 +286,12 @@ class RLTrader:
                 net_worths.set_index('Date', drop=True, inplace=True)
                 returns = net_worths.pct_change()[1:]
 
-                if render_report:
-                    qs.plots.snapshot(returns.Balance, title='RL Trader Performance')
+                # if render_report:
+                #     qs.plots.snapshot(returns.Balance, title='RL Trader Performance')
 
-                if save_report:
-                    reports_path = path.join('data', 'reports', f'{self.study_name}__{model_epoch}.html')
-                    qs.reports.html(returns.Balance, file=reports_path)
+                # if save_report:
+                #     reports_path = path.join('data', 'reports', f'{self.study_name}__{model_epoch}.html')
+                #     qs.reports.html(returns.Balance, file=reports_path)
 
         self.logger.info(
             f'Finished testing model ({self.study_name}__{model_epoch}): ${"{:.2f}".format(np.sum(rewards))}')

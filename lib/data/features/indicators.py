@@ -1,6 +1,5 @@
 import ta
 import pandas as pd
-from talib import abstract
 
 diff = lambda x, y: x - y
 abs_diff = lambda x, y: abs(x - y)
@@ -47,72 +46,8 @@ indicators = [
 ]
 
 
-indicators_talib = [
-    ("BBANDS_", abstract.BBANDS),
-    ("DEMA_  ", abstract.DEMA),
-    ("EMA_", abstract.EMA),
-    ("HT_TRENDLINE_", abstract.HT_TRENDLINE),
-    ("KAMA_", abstract.KAMA),
-    ("MA_", abstract.MA),
-    ("MAMA_", abstract.MAMA),
-    # ("_MAVP", abstract.MAVP),
-    ("MIDPOINT_", abstract.MIDPOINT),
-    ("MIDPRICE_", abstract.MIDPRICE),
-    ("SAR_", abstract.SAR),
-    ("SAREXT_", abstract.SAREXT),
-    ("SMA_", abstract.SMA),
-    ("T3_", abstract.T3),
-    ("TEMA_", abstract.TEMA),
-    ("TRIMA_", abstract.TRIMA),
-    ("WMA_", abstract.WMA),
-    ("ADX_", abstract.ADX),
-    ("ADXR_", abstract.ADXR),
-    ("APO_", abstract.APO),
-    ("AROON_", abstract.AROON),
-    ("AROONOSC_", abstract.AROONOSC),
-    ("BOP_", abstract.BOP),
-    ("CCI_", abstract.CCI),
-    ("CMO_", abstract.CMO),
-    ("DX_", abstract.DX),
-    ("MACD_", abstract.MACD),
-    ("MACDEXT_", abstract.MACDEXT),
-    ("MACDFIX_", abstract.MACDFIX),
-    ("MFI_", abstract.MFI),
-    ("MINUS_DI_", abstract.MINUS_DI),
-    ("MINUS_DM_", abstract.MINUS_DM),
-    ("MOM_", abstract.MOM),
-    ("PLUS_DI_", abstract.PLUS_DI),
-    ("PLUS_DM_", abstract.PLUS_DM),
-    ("PPO_", abstract.PPO),
-    ("ROC_", abstract.ROC),
-    ("ROCP_", abstract.ROCP),
-    ("ROCR_", abstract.ROCR),
-    ("ROCR100_", abstract.ROCR100),
-    ("RSI_", abstract.RSI),
-    ("STOCH_", abstract.STOCH),
-    ("STOCHF_", abstract.STOCHF),
-    ("STOCHRSI_", abstract.STOCHRSI),
-    ("TRIX_", abstract.TRIX),
-    ("ULTOSC_", abstract.ULTOSC),
-    ("WILLR_", abstract.WILLR),
-    ("AD_", abstract.AD),
-    ("ADOSC_", abstract.ADOSC),
-    ("OBV_", abstract.OBV),
-    ("HT_DCPERIOD_", abstract.HT_DCPERIOD),
-    ("HT_DCPHASE_", abstract.HT_DCPHASE),
-    ("HT_PHASOR_", abstract.HT_PHASOR),
-    ("HT_SINE_", abstract.HT_SINE),
-    ("HT_TRENDMODE_", abstract.HT_TRENDMODE),
-    ("AVGPRICE_", abstract.AVGPRICE),
-    ("MEDPRICE_", abstract.MEDPRICE),
-    ("TYPPRICE_", abstract.TYPPRICE),
-    ("WCLPRICE_", abstract.WCLPRICE),
-    ("ATR_", abstract.ATR),
-    ("NATR_", abstract.NATR),
-    ("TRANGE_", abstract.TRANGE),
-]
-
 def get_indicators_len():
+    return 0
     features = []
     for name, f in indicators_talib:
         features += f.output_flags

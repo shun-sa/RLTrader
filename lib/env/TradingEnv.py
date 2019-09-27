@@ -164,7 +164,7 @@ class TradingEnv(gym.Env):
         self.current_ohlcv = self.data_provider.next_ohlcv()
         self.timestamps.append(pd.to_datetime(self.current_ohlcv.Date.item(), unit='s'))
         self.observations = self.observations.append(self.current_ohlcv, ignore_index=True)
-        self.observations = add_indicators(self.observations)
+        # self.observations = add_indicators(self.observations)
         # print (self.observations)
         if not self.stationarize_obs:
             observations = log_and_difference(self.observations, inplace=False)
@@ -175,7 +175,7 @@ class TradingEnv(gym.Env):
         #     observations = max_min_normalize(observations)
 
         obs = observations.values[-1]
-        print(observations["Date"])
+        # print(observations["Date"])
         if self.stationarize_obs:
             scaled_history = log_and_difference(self.account_history, inplace=False)
         else:
